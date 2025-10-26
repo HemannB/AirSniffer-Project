@@ -45,8 +45,8 @@ async function fetchLatest() {
 
     const latest = data[0];
 
-    document.querySelector(".indoor-card .aqi-value").textContent = classifyAQI(latest.tvoc_ppb);
-    document.querySelector(".indoor-card .aqi-status").textContent = aqiLevelToText(classifyAQI(latest.tvoc_ppb));
+    document.querySelector(".indoor-card .aqi-value").textContent = latest.aqi;
+    document.querySelector(".indoor-card .aqi-status").textContent = aqiLevelToText(latest.aqi);
     document.querySelector(".indoor-card .aqi-description").textContent =
       `CO₂: ${latest.co2_ppm} ppm | VOC: ${(latest.tvoc_ppb/1000).toFixed(2)} mg/m³ | AQI: ${latest.aqi}`;
 
