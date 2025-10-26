@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirSniffer Mk1 - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Qualidade do Ar</h1>
+      <p>Monitoramento em tempo real - AirSniffer Mk1</p>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="overview-section">
+      <!-- Indoor Card -->
+      <div class="air-card indoor-card">
+        <div class="card-header">
+          <ion-icon class="card-icon" name="home-outline"></ion-icon>
+          <div class="card-title">Interior</div>
+        </div>
+        <div class="aqi-value">--</div>
+        <div class="aqi-status">--</div>
+        <div class="aqi-description">--</div>
+        <p><b>Temperatura:</b> <span class="indoor-temp">--</span> °C</p>
+        <p><b>Umidade:</b> <span class="indoor-hum">--</span> %</p>
+      </div>
+
+      <!-- Outdoor Card -->
+      <div class="air-card outdoor-card">
+        <div class="card-header">
+          <ion-icon class="card-icon" name="partly-sunny-outline"></ion-icon>
+          <div class="card-title">Exterior</div>
+        </div>
+        <div class="aqi-value">--</div>
+        <div class="aqi-status">--</div>
+        <div class="aqi-description">--</div>
+        <p><b>Temperatura:</b> <span class="outdoor-temp">--</span> °C</p>
+        <p><b>Umidade:</b> <span class="outdoor-hum">--</span> %</p>
+      </div>
+    </div>
+
+    <!-- Interval Selector -->
+    <div class="chart-controls">
+      <label for="intervalSelect">Intervalo:</label>
+      <select id="intervalSelect">
+        <option value="6">6h</option>
+        <option value="12">12h</option>
+        <option value="24" selected>24h</option>
+        <option value="168">7 dias</option>
+      </select>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="chart-card">
+        <h3 class="chart-title">Temperatura e Umidade - Histórico</h3>
+        <div class="chart-container">
+          <canvas id="tempHumidityChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3 class="chart-title">AQI Interior vs Exterior</h3>
+        <div class="chart-container">
+          <canvas id="aqiChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; <span id="year"></span> - Projeto Integrador IV | AirSniffer Mk1 | Ciência da Computação | URI Campus Santiago
+    </p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

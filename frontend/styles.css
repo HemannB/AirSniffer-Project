@@ -1,0 +1,408 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Adicionando elementos de fundo para demonstrar o efeito de vidro */
+body::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(79, 172, 254, 0.2) 0%,
+    rgba(0, 242, 254, 0.2) 100%
+  );
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(67, 233, 123, 0.15) 0%,
+    rgba(56, 249, 215, 0.15) 100%
+  );
+  z-index: -1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+.overview-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* Efeito de vidro para os cards principais */
+.air-card {
+  background: rgba(40, 40, 50, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.air-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.4);
+}
+
+.air-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+.indoor-card {
+  --gradient: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.outdoor-card {
+  --gradient: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  opacity: 0.8;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.aqi-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.aqi-status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #43e97b;
+}
+
+.aqi-description {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+.measurements-section {
+  margin-bottom: 50px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.measurements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Efeito de vidro para os cards de medição */
+.measurement-card {
+  background: rgba(40, 40, 50, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.measurement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.4);
+}
+
+.semicircle-container {
+  position: relative;
+  width: 180px;
+  height: 90px;
+  margin: 0 auto 20px;
+}
+
+.semicircle-bg {
+  width: 180px;
+  height: 90px;
+  border: 8px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  border-radius: 90px 90px 0 0;
+  position: relative;
+}
+
+.semicircle-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 90px;
+  border: 8px solid transparent;
+  border-bottom: none;
+  border-radius: 90px 90px 0 0;
+  transform-origin: center bottom;
+  transition: all 0.8s ease-in-out;
+}
+
+.co2-fill {
+  border-top-color: #ff6b6b;
+  border-left-color: #ff6b6b;
+  border-right-color: #ff6b6b;
+  transform: rotate(-45deg);
+}
+
+.humidity-fill {
+  border-top-color: #4facfe;
+  border-left-color: #4facfe;
+  border-right-color: #4facfe;
+  transform: rotate(-18deg);
+}
+
+.temperature-fill {
+  border-top-color: #ff9f43;
+  border-left-color: #ff9f43;
+  border-right-color: #ff9f43;
+  transform: rotate(-36deg);
+}
+
+.voc-fill {
+  border-top-color: #43e97b;
+  border-left-color: #43e97b;
+  border-right-color: #43e97b;
+  transform: rotate(-54deg);
+}
+
+.measurement-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.measurement-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+}
+
+.measurement-unit {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Efeito de vidro para os cards de gráficos */
+.chart-card {
+  background: rgba(40,40,50,0.3);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+
+.chart-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: center;
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Adicionando elementos de exemplo nos gráficos */
+.chart-placeholder {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+}
+
+/* Footer */
+footer {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Chart Controls */
+.chart-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.chart-controls label {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.chart-controls select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(40,40,50,0.4);
+  color: #fff;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.chart-controls select:hover,
+.chart-controls select:focus {
+  background: rgba(40,40,50,0.6);
+  border-color: #43e97b;
+}
+@media (max-width: 1024px) {
+  .charts-section {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .chart-container { height: 250px; }
+}
+
+@media (max-width: 480px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .chart-container { height: 250px; width:300px;}
+  .chart-title { font-size: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .overview-section {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+
+  .measurements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+}
