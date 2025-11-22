@@ -1,90 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AirSniffer Mk1 - Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>AirSniffer Mk1</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="logo.png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
+
 <body>
   <div class="container">
-
-    <!-- Header -->
     <div class="header">
-      <h1>Qualidade do Ar</h1>
-      <p>Monitoramento em tempo real - AirSniffer Mk1</p>
-    </div>
-
-    <!-- Overview Section -->
-    <div class="overview-section">
-      <!-- Indoor Card -->
-      <div class="air-card indoor-card">
-        <div class="card-header">
-          <ion-icon class="card-icon" name="home-outline"></ion-icon>
-          <div class="card-title">Interior</div>
-        </div>
-        <div class="aqi-value">--</div>
-        <div class="aqi-status">--</div>
-        <div class="aqi-description">--</div>
-        <p><b>Temperatura:</b> <span class="indoor-temp">--</span> °C</p>
-        <p><b>Umidade:</b> <span class="indoor-hum">--</span> %</p>
+      <div class="header-left">
+        <div class="logo-container"><img src="logo.png"></div>
+        <h1 id="dashboard-title">AirSniffer Mk1</h1>
       </div>
-
-      <!-- Outdoor Card -->
-      <div class="air-card outdoor-card">
-        <div class="card-header">
-          <ion-icon class="card-icon" name="partly-sunny-outline"></ion-icon>
-          <div class="card-title">Exterior</div>
-        </div>
-        <div class="aqi-value">--</div>
-        <div class="aqi-status">--</div>
-        <div class="aqi-description">--</div>
-        <p><b>Temperatura:</b> <span class="outdoor-temp">--</span> °C</p>
-        <p><b>Umidade:</b> <span class="outdoor-hum">--</span> %</p>
+      <div class="status-badge status-good" id="overall-status">
+        <span id="connection-status"></span>
       </div>
     </div>
 
-    <!-- Interval Selector -->
-    <div class="chart-controls">
-      <label for="intervalSelect">Intervalo:</label>
-      <select id="intervalSelect">
-        <option value="6">6h</option>
-        <option value="12">12h</option>
-        <option value="24" selected>24h</option>
-        <option value="168">7 dias</option>
-      </select>
-    </div>
+    <div class="main-grid">
+      <!-- INDOOR SECTION -->
+      <div class="env-section indoor-card">
+        <div class="env-header">
+          <div class="env-title">
+            <span>🏠</span>
+            <span id="indoor-label">INTERNO</span>
+          </div>
+          <div class="env-stats">
+            <span>🌡️ <span id="indoor-temp" class="indoor-temp">--</span>°C</span>
+            <span>💧 <span id="indoor-humidity" class="indoor-hum">--</span>%</span>
+          </div>
+        </div>
 
-    <!-- Charts Section -->
-    <div class="charts-section">
-      <div class="chart-card">
-        <h3 class="chart-title">Temperatura e Umidade - Histórico</h3>
-        <div class="chart-container">
-          <canvas id="tempHumidityChart"></canvas>
+        <div class="aqi-card">
+          <svg class="aqi-circle" width="220" height="220">
+            <circle class="aqi-bg" cx="110" cy="110" r="90"></circle>
+            <circle class="aqi-progress" id="indoor-progress" cx="110" cy="110" r="90" stroke="#48bb78"
+              stroke-dasharray="565.48" stroke-dashoffset="565.48"></circle>
+          </svg>
+          <div class="aqi-content">
+            <div class="aqi-value" id="indoor-aqi-value">--</div>
+            <div class="aqi-label" id="indoor-aqi-label">CARREGANDO</div>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">🫁</div>
+            <div class="metric-value" id="co2-value">--</div>
+            <div class="metric-label">CO₂</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">💨</div>
+            <div class="metric-value" id="tvoc-value">--</div>
+            <div class="metric-label">TVOC</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">✨</div>
+            <div class="metric-value" id="air-value">--</div>
+            <div class="metric-label">AQI</div>
+          </div>
+        </div>
+
+        <div class="details-section" id="indoor-details-toggle">
+          <div class="details-header">
+            <span>Detalhes Técnicos</span>
+            <span id="indoor-arrow">▼</span>
+          </div>
+          <div class="details-content" id="indoor-details">
+            <div class="detail-row">
+              <span>CO₂</span>
+              <span><strong id="detail-co2">-- ppm</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>TVOC</span>
+              <span><strong id="detail-tvoc">-- ppb</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>Temperatura</span>
+              <span><strong id="detail-temp">-- °C</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>Umidade</span>
+              <span><strong id="detail-hum">-- %</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>Última Atualização</span>
+              <span><strong id="last-update">--</strong></span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="chart-card">
-        <h3 class="chart-title">AQI Interior vs Exterior</h3>
-        <div class="chart-container">
-          <canvas id="aqiChart"></canvas>
+      <!-- OUTDOOR SECTION -->
+      <div class="env-section outdoor-card">
+        <div class="env-header">
+          <div class="env-title">
+            <span>🌳</span>
+            <span id="outdoor-label">EXTERNO</span>
+          </div>
+          <div class="env-stats">
+            <span>🌡️ <span id="outdoor-temp" class="outdoor-temp">--</span>°C</span>
+            <span>💧 <span id="outdoor-humidity" class="outdoor-hum">--</span>%</span>
+          </div>
+        </div>
+
+        <div class="aqi-card">
+          <svg class="aqi-circle" width="220" height="220">
+            <circle class="aqi-bg" cx="110" cy="110" r="90"></circle>
+            <circle class="aqi-progress" id="outdoor-progress" cx="110" cy="110" r="90" stroke="#ecc94b"
+              stroke-dasharray="565.48" stroke-dashoffset="565.48"></circle>
+          </svg>
+          <div class="aqi-content">
+            <div class="aqi-value" id="outdoor-aqi-value">--</div>
+            <div class="aqi-label" id="outdoor-aqi-label">--</div>
+          </div>
+        </div>
+
+        <div class="weather-info">
+          <div class="weather-item">
+            <span class="weather-icon" id="weather-icon">⏳</span>
+            <span class="weather-text" id="weather-condition">Carregando...</span>
+          </div>
+          <div class="weather-item">
+            <span class="weather-icon">💨</span>
+            <span class="weather-text" id="weather-wind">-- km/h</span>
+          </div>
+          <div class="weather-item">
+            <span class="weather-icon">🌡️</span>
+            <span class="weather-text" id="weather-pressure">-- hPa</span>
+          </div>
+          <div class="weather-item">
+            <span class="weather-icon">👁️</span>
+            <span class="weather-text" id="weather-visibility">-- km</span>
+          </div>
+        </div>
+
+        <div class="details-section" id="outdoor-details-toggle">
+          <div class="details-header">
+            <span>Detalhes da API</span>
+            <span id="outdoor-arrow">▼</span>
+          </div>
+          <div class="details-content" id="outdoor-details">
+            <div class="detail-row">
+              <span>AQI Externo</span>
+              <span><strong id="detail-outdoor-aqi">--</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>PM2.5</span>
+              <span><strong id="detail-pm25">-- μg/m³</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>PM10</span>
+              <span><strong id="detail-pm10">-- μg/m³</strong></span>
+            </div>
+            <div class="detail-row">
+              <span>O₃ (Ozônio)</span>
+              <span><strong id="detail-o3">-- ppb</strong></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- HISTORY SECTION -->
+<div class="history-section">
+  <div class="history-header">
+    <h2 class="history-title" id="history-title">Histórico de Qualidade do Ar</h2>
+    <div class="time-selector">
+      <button class="time-btn active" data-period="6">6h</button>
+      <button class="time-btn" data-period="12">12h</button>
+      <button class="time-btn" data-period="24">24h</button>
+      <button class="time-btn" data-period="168">7d</button>
+    </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>
-      &copy; <span id="year"></span> - Projeto Integrador IV | AirSniffer Mk1 | Ciência da Computação | URI Campus Santiago
-    </p>
-  </footer>
+  <div class="chart-container">
+    <canvas id="historyChart" width="800" height="200"></canvas>
+  </div>
+
+  <!-- Legenda das linhas -->
+  <div class="chart-legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: #8b5cf6;"></div>
+      <span>🏠 AQI Interno</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #f97316;"></div>
+      <span>🌳 AQI Externo</span>
+    </div>
+  </div>
+  <!-- Quick Metrics -->
+  <div class="quick-metrics">
+    <div class="metric-card">
+      <div class="metric-value" id="avgTemp">--°C</div>
+      <div class="metric-label">Temp. Média</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="avgHumidity">--%</div>
+      <div class="metric-label">Umidade Média</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="peakAQI">--</div>
+      <div class="metric-label">Pico AQI</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="airQuality">--</div>
+      <div class="metric-label">Qualidade Geral</div>
+    </div>
+  </div>
+</div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p class="footer-text">
+        <span class="footer-highlight">Projeto Integrador URI</span> - Ciência da Computação <span
+          id="current-year"></span>
+      </p>
+    </div>
+  </div>
 
   <script src="scripts.js"></script>
+  <script>
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      document.body.classList.add('mobile-device');
+    }
+
+    window.addEventListener('orientationchange', function () {
+      setTimeout(() => {
+        if (window.historyChartInstance) {
+          window.historyChartInstance.resize();
+        }
+      }, 300);
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.historyChartInstance) {
+        window.historyChartInstance.resize();
+      }
+    });
+  </script>
 </body>
+
 </html>
